@@ -1,3 +1,9 @@
 # Node API with Express
 
-## Second Commit 
+## Second Commit
+
+```javascript
+const teste = () => {
+  console.log("olá")
+}
+```

@@ -1,7 +1,7 @@
 {
   "name": "backend-api-node",
-  "version": "0.1.0",
-  "description": "Backend do projeto 3 modulo",
+  "version": "1.0.0",
+  "description": "Backend do projeto 3 modulo.",
   "main": "server.js",
   "scripts": {
     "start": "node src/server",
@@ -12,11 +12,13 @@
     "node",
     "express"
   ],
-  "author": "Kevin Abmael",
+  "author": "Renan Cavichi",
   "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
   "dependencies": {
     "express": "^4.18.2",
-    "mysql": "^2.18.1",
-    "nodemon": "^2.0.20"
+    "mysql": "^2.18.1"
   }
 }
