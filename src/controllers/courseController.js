@@ -1,4 +1,3 @@
-import mysql from 'mysql'
 import courseModel from '../models/courseModel.js'
 
 export const listAllCourses = (req, res) => {
