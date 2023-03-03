@@ -1,6 +1,6 @@
-const con = require('../db/dbConnection')
+import con from '../db/dbConnection.js'
 
-const listAllCourses = (callback) => {
+export const listAllCourses = (callback) => {
   const sql = "SELECT * FROM cursos;"
   con.query(sql, (err, result) => {
     if (err) {
@@ -12,7 +12,7 @@ const listAllCourses = (callback) => {
   })
 }
 
-const createCourse = (course, callback) => {
+export const createCourse = (course, callback) => {
   const { curso, cargahoraria } = course
   const sql = 'INSERT INTO cursos (nome, cargahoraria) VALUES (?, ?);'
   const values = [curso, cargahoraria]
@@ -27,7 +27,7 @@ const createCourse = (course, callback) => {
   })
 }
 
-const deleteCourse = (id, callback) => {
+export const deleteCourse = (id, callback) => {
   const sql = 'DELETE FROM cursos WHERE id = ?;'
   const values = [id]
 
@@ -41,7 +41,7 @@ const deleteCourse = (id, callback) => {
   })
 }
 
-const updateCourse = (course, callback) => {
+export const updateCourse = (course, callback) => {
   const { id, curso, cargahoraria } = course
   const sql = 'UPDATE cursos SET nome = ?, cargahoraria = ? WHERE id = ?;'
   const values = [curso, cargahoraria, id]
@@ -56,5 +56,6 @@ const updateCourse = (course, callback) => {
   })
 }
 
+const courseModel = { listAllCourses, createCourse, deleteCourse, updateCourse }
 
-module.exports = { listAllCourses, createCourse, deleteCourse, updateCourse }
+export default courseModel
