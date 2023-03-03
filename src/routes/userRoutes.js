@@ -13,4 +13,8 @@ router.delete('/', (req, res) => {
   res.json({ message: "Deletado com sucesso!" })
 })
 
+router.put('/', (req, res) => {
+  res.json({ message: "Deletado com sucesso!" })
+})
+
 module.exports = router
