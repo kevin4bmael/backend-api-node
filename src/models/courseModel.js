@@ -21,7 +21,7 @@ export const showCourse = (callback) => {
       callback(err, null)
       console.log("DB Error:" + err.sqlMessage)
     } else {
-      callback(null, re sult)
+      callback(null, result)
     }
   })
 }
