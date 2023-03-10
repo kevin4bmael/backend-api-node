@@ -1,11 +1,13 @@
 import express from 'express'
 import courseRoutes from './routes/courseRoutes.js'
 import userRoutes from './routes/userRoutes.js'
+import { SERVER } from '../src/config.js'
 
 const app = express()
-const port = 3100
+const port = SERVER.PORT
 
 app.use(express.json())
+//app.use(express.urlencoded({ extended: false })) // form urlenconded
 
 //TODO: Tratar erro de json inválido
 

@@ -12,6 +12,21 @@ export const listAllCourses = (callback) => {
   })
 }
 
+export const showCourse = (callback) => {
+  const sql = "SELECT * FROM curso WHERE id = ?;"
+  const value = [id]
+
+  con.query(sql, value, (err, result) => {
+    if (err) {
+      callback(err, null)
+      console.log("DB Error:" + err.sqlMessage)
+    } else {
+      callback(null, re sult)
+    }
+  })
+}
+
+
 export const createCourse = (course, callback) => {
   const { curso, cargahoraria } = course
   const sql = 'INSERT INTO cursos (nome, cargahoraria) VALUES (?, ?);'
@@ -56,6 +71,6 @@ export const updateCourse = (course, callback) => {
   })
 }
 
-const courseModel = { listAllCourses, createCourse, deleteCourse, updateCourse }
+const courseModel = { listAllCourses, showCourse, createCourse, deleteCourse, updateCourse }
 
 export default courseModel
