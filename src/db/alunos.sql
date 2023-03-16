@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 15-Mar-2023 às 02:56
+-- Tempo de geração: 15-Mar-2023 às 02:57
 -- Versão do servidor: 10.4.27-MariaDB
 -- versão do PHP: 8.2.0
 
@@ -42,26 +42,6 @@ INSERT INTO `alunos` (`id`, `usuario`, `senha`) VALUES
 (5, 'fabricia', 'modas'),
 (6, 'pao', 'zinho');
 
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `cursos`
---
-
-CREATE TABLE `cursos` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(100) NOT NULL,
-  `cargahoraria` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Extraindo dados da tabela `cursos`
---
-
-INSERT INTO `cursos` (`id`, `nome`, `cargahoraria`) VALUES
-(1, 'LP2', '76 horas'),
-(2, 'PJ3', '76 horas');
-
 --
 -- Índices para tabelas despejadas
 --
@@ -73,12 +53,6 @@ ALTER TABLE `alunos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Índices para tabela `cursos`
---
-ALTER TABLE `cursos`
-  ADD PRIMARY KEY (`id`);
-
---
 -- AUTO_INCREMENT de tabelas despejadas
 --
 
@@ -87,12 +61,6 @@ ALTER TABLE `cursos`
 --
 ALTER TABLE `alunos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de tabela `cursos`
---
-ALTER TABLE `cursos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

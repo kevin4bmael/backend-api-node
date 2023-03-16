@@ -1,7 +1,7 @@
 import con from '../db/dbConnection.js'
 
-export const listAllCourses = (callback) => {
-  const sql = "SELECT * FROM cursos;"
+export const listAllAlunos = (callback) => {
+  const sql = "SELECT * FROM alunos;"
   con.query(sql, (err, result) => {
     if (err) {
       callback(err, null)
@@ -12,23 +12,25 @@ export const listAllCourses = (callback) => {
   })
 }
 
-export const showCourse = (id, callback) => {
-  const sql = "SELECT * FROM cursos WHERE id = ?;"
+export const showAluno = (id, callback) => {
+  const sql = "SELECT * FROM alunos WHERE id = ?;"
   const value = [id]
+
   con.query(sql, value, (err, result) => {
     if (err) {
       callback(err, null)
-      console.log(`DB Error: ${err.sqlMessage}`)
+      console.log("DB Error:" + err.sqlMessage)
     } else {
       callback(null, result)
     }
   })
 }
 
-export const createCourse = (course, callback) => {
-  const { curso, cargahoraria } = course
-  const sql = 'INSERT INTO cursos (nome, cargahoraria) VALUES (?, ?);'
-  const values = [curso, cargahoraria]
+
+export const createAluno = (alunos, callback) => {
+  const { id, usuario, senha } = alunos
+  const sql = 'INSERT INTO alunos (id, usuario, senha) VALUES (?, ?, ?);'
+  const values = [id, usuario, senha]
 
   con.query(sql, values, (err, result) => {
     if (err) {
@@ -40,8 +42,8 @@ export const createCourse = (course, callback) => {
   })
 }
 
-export const deleteCourse = (id, callback) => {
-  const sql = 'DELETE FROM cursos WHERE id = ?;'
+export const deleteAluno = (id, callback) => {
+  const sql = 'DELETE FROM alunos WHERE id = ?;'
   const values = [id]
 
   con.query(sql, values, (err, result) => {
@@ -54,10 +56,10 @@ export const deleteCourse = (id, callback) => {
   })
 }
 
-export const updateCourse = (course, callback) => {
-  const { id, curso, cargahoraria } = course
-  const sql = 'UPDATE cursos SET nome = ?, cargahoraria = ? WHERE id = ?;'
-  const values = [curso, cargahoraria, id]
+export const updateAluno = (alunos, callback) => {
+  const { id, usuario, senha } = alunos
+  const sql = 'UPDATE alunos SET usuario = ?, senha = ? WHERE id = ?;'
+  const values = [usuario, senha, id]
 
   con.query(sql, values, (err, result) => {
     if (err) {
@@ -69,6 +71,6 @@ export const updateCourse = (course, callback) => {
   })
 }
 
-const courseModel = { listAllCourses, showCourse, createCourse, deleteCourse, updateCourse }
+const alunosModel = { listAllAlunos, showAluno, createAluno, deleteAluno, updateAluno }
 
-export default courseModel
+export default alunosModel
