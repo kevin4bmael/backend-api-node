@@ -4,8 +4,10 @@ export const listAllAlunos = (_req, res) => {
   alunosModel.listAllAlunos((error, result) => {
     if (error)
       res.status(500).json({ message: "Erro no Banco de Dados" })
-    if (result)
-      res.json(result)
+    if (result) {
+
+    }
+    res.json(result)
   })
 }
 
@@ -27,9 +29,21 @@ export const createAluno = (req, res) => {
 
   alunosModel.createAluno(alunos, (error, result) => {
     if (error)
+
       res.status(500).json({ message: "Erro no Banco de Dados" })
-    if (result)
-      res.json({ message: "Usuario Cadastrado!" })
+
+    if (result) {
+
+      res.json({
+        message: "Usuario Cadastrado!",
+        alunos: {
+          id: result.insertId,
+          ...alunos
+        }
+
+      })
+
+    }
   })
 }
 
@@ -40,11 +54,15 @@ export const deleteAluno = (req, res) => {
   alunosModel.deleteAluno(id, (error, result) => {
     if (error)
       res.status(500).json({ message: "Erro no Banco de Dados" })
-    if (result)
-      res.json({ message: "Usuario Deletado!" })
+    if (result) {
+      if (result.affectedRows) {
+        res.json({ message: "Usuário Deletado com Sucesso!" })
+      } else {
+        res.status(404).json({ message: `Usuário ${id} não encontrado` })
+      }
+    }
   })
 }
-
 export const deleteIdAluno = (req, res) => {
   const { id, slug } = req.params
   console.log(slug)
@@ -52,21 +70,31 @@ export const deleteIdAluno = (req, res) => {
   alunosModel.deleteAluno(id, (error, result) => {
     if (error)
       res.status(500).json({ message: "Erro no Banco de Dados" })
-    if (result)
-      //TODO Verificar se ao menos uma linha foi removida!
-      res.json({ message: "Usuario Deletado com Sucesso!" })
+    if (result) {
+      if (result.affectedRows) {
+        res.json({ message: "Usuario Deletado com Sucesso!" })
+      } else {
+        res.status(404).json({ message: `Usuario ${id} não encontrado` })
+      }
+    }
+
   })
 }
 
 export const updateAluno = (req, res) => {
 
-  const course = req.body
+  const alunos = req.body
   //TODO Verificar se os dados são válidos
 
-  alunosModel.updateAluno(course, (error, result) => {
+  alunosModel.updateAluno(alunos, (error, result) => {
     if (error)
       res.status(500).json({ message: "Erro no Banco de Dados" })
-    if (result)
-      res.json({ message: "Usuario Atualizado!" })
+    if (result) {
+      if (result.affectedRows) {
+        res.json({ message: "Usuário Atualizado com Sucesso!" })
+      } else {
+        res.status(404).json({ message: `Usuário ${alunos.id} não encontrado` })
+      }
+    }
   })
 }
