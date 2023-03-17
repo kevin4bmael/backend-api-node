@@ -28,9 +28,9 @@ export const showAluno = (id, callback) => {
 
 
 export const createAluno = (alunos, callback) => {
-  const { id, usuario, senha } = alunos
-  const sql = 'INSERT INTO alunos (id, usuario, senha) VALUES (?, ?, ?);'
-  const values = [id, usuario, senha]
+  const { usuario, senha } = alunos
+  const sql = 'INSERT INTO alunos (usuario, senha) VALUES (?, ?);'
+  const values = [usuario, senha]
 
   con.query(sql, values, (err, result) => {
     if (err) {
