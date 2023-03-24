@@ -1,5 +1,23 @@
 import con from '../db/dbConnection.js'
 
+import { z } from 'zod'
+
+const userSchema = z.object({
+  id: z.number().optional(),
+  nome: z.string().min(3).max(50),
+  email:
+    z.string({ message: "Email Inválido" })
+      .email({ message: "Email Inválido" })
+      .min(5, { message: "O email deve ter ao menos 5 Caracteres" })
+      .max(50),
+  senha: z.string().min(3).max(50),
+  avatar: z.string()
+})
+
+export const validateAluno = (user) => {
+  return userSchema.parse(user)
+}
+
 export const listAllAlunos = (callback) => {
   const sql = "SELECT * FROM alunos;"
   con.query(sql, (err, result) => {
@@ -71,6 +89,6 @@ export const updateAluno = (alunos, callback) => {
   })
 }
 
-const alunosModel = { listAllAlunos, showAluno, createAluno, deleteAluno, updateAluno }
+const alunosModel = { listAllAlunos, showAluno, createAluno, deleteAluno, updateAluno, validateAluno }
 
 export default alunosModel
