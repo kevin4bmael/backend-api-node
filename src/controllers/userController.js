@@ -28,27 +28,30 @@ export const showAluno = (req, res) => {
 export const createAluno = (req, res) => {
 
   const alunos = req.body
-  //TODO Verificar se os dados são válidos
 
-  alunosModel.createAluno(alunos, (error, result) => {
-    if (error)
-
-      res.status(500).json({ message: "Erro no Banco de Dados" })
-
-    if (result) {
-
-      res.json({
-        message: "Usuario Cadastrado!",
-        alunos: {
-          id: result.insertId,
-          ...alunos
-        }
-
-      })
-
-    }
-  })
+  try {
+    alunosModel.validateAluno(alunos)
+    alunosModel.createAluno(alunos, (error, result) => {
+      if (error)
+        res.status(500).json({ message: "Erro no Banco de Dados" })
+      if (result) {
+        res.json({
+          message: "Usuário Cadastrado!",
+          alunos: {
+            id: result.insertId,
+            ...alunos
+          }
+        })
+      }
+    })
+  } catch (error) {
+    res.status(400).json({
+      message: 'Dados inválidos',
+      error: error.errors
+    })
+  }
 }
+
 
 export const deleteAluno = (req, res) => {
 
