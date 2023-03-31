@@ -5,12 +5,12 @@ export const listAllCourses = (req, res) => {
     if (error)
       res.status(500).json({ message: "Erro no Banco de Dados" })
     if (result) {
-      if (result.lenght)
+      if (result.lenght) {
         res.json(result)
+      }
     } else {
       res.status(200).json({ message: "Nenhum curso cadastrado" })
     }
-
   })
 }
 
