@@ -1,4 +1,5 @@
 import alunosModel from '../models/userModel.js'
+import zodErrorFormat from '../helper/zodErrorFormat.js'
 
 export const listAllAlunos = (_req, res) => {
   alunosModel.listAllAlunos((error, result) => {
@@ -27,31 +28,40 @@ export const showAluno = (req, res) => {
 
 export const createAluno = (req, res) => {
 
+
   const alunos = req.body
 
-  try {
-    alunosModel.validateAluno(alunos)
-    alunosModel.createAluno(alunos, (error, result) => {
-      if (error)
-        res.status(500).json({ message: "Erro no Banco de Dados" })
-      if (result) {
-        res.json({
-          message: "Usuário Cadastrado!",
-          alunos: {
-            id: result.insertId,
-            ...alunos
-          }
-        })
-      }
-    })
-  } catch (error) {
+  const validUser = alunosModel.validateAluno(alunos)
+
+  if (validUser?.error) {
     res.status(400).json({
       message: 'Dados inválidos',
-      error: error.errors
+      fields: zodErrorFormat(validUser.error)
     })
+    return
   }
-}
 
+  const userValidated = validUser.data
+
+  //TODO validar se o email já existe no banco antes de cadastrar
+
+  alunosModel.createAluno(userValidated, (error, result) => {
+    if (error)
+      res.status(500).json({ message: "Erro no Banco de Dados" })
+    if (result) {
+      res.json({
+        message: "Usuário Cadastrado!",
+        alunos: {
+          id: result.insertId,
+          ...alunos
+        }
+      })
+    }
+  })
+
+
+
+}
 
 export const deleteAluno = (req, res) => {
 
