@@ -3,19 +3,27 @@ import con from '../db/dbConnection.js'
 import { z } from 'zod'
 
 const userSchema = z.object({
-  id: z.number().optional(),
-  nome: z.string().min(3).max(50),
-  email:
-    z.string({ message: "Email Inválido" })
-      .email({ message: "Email Inválido" })
-      .min(5, { message: "O email deve ter ao menos 5 Caracteres" })
-      .max(50),
-  senha: z.string().min(3).max(50),
-  avatar: z.string()
+  id:
+    z.number({ message: "ID deve ser um valor numérico." })
+      .optional(),
+  usuario:
+    z.string({
+      required_error: "Nome é obrigatória.",
+      invalid_type_error: "Nome deve ser uma string.",
+    })
+      .min(3, { message: "Nome deve ter no mínimo 3 caracteres." })
+      .max(100, { message: "Nome deve ter no máximo 100 caracteres." }),
+  senha:
+    z.string({
+      required_error: "Senha é obrigatória.",
+      invalid_type_error: "Senha deve ser uma string.",
+    })
+      .min(6, { message: "Senha deve ter no mínimo 6 caracteres." })
+      .max(256, { message: "Senha deve ter no máximo 256 caracteres." }),
 })
 
 export const validateAluno = (user) => {
-  return userSchema.parse(user)
+  return userSchema.safeParse(user)
 }
 
 export const listAllAlunos = (callback) => {
